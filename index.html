@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f4f1e9">
+  <meta name="description" content="每一秒的努力，都在累積。即時查看今日收入、下班倒數與工作進度，讓上班多一點小小的期待。">
+  <title>一念木魚｜把努力，敲成心安</title>
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css"><link rel="stylesheet" href="./zen.css">
+  <script src="./calculator.js" defer></script>
+  <script src="./app.js" defer></script><script src="./muyu.js" defer></script>
+</head>
+<body>
+  <svg class="icon-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><symbol id="i-settings" viewBox="0 0 24 24"><path d="M12 8v0a4 4 0 1 0 0 8 4 4 0 0 0 0-8Z"/><path d="m9 3-1 3-3 1-2 3 2 2-1 3 3 2 1 3h4l2-2 3-1 2-3-1-3 1-3-3-2-1-3Z"/></symbol><symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h16m-6-6 6 6-6 6"/></symbol><symbol id="i-expand" viewBox="0 0 24 24"><path d="M9 4H4v5m11-5h5v5M4 15v5h5m11-5v5h-5"/></symbol><symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M6 7a7 7 0 0 1 12-1l2 6M4 12l2 6a7 7 0 0 0 12-1"/></symbol><symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M6 18 18 6"/></symbol><symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></symbol><symbol id="i-coffee" viewBox="0 0 24 24"><path d="M4 9h13v6a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5Zm13 1h2a3 3 0 0 1 0 6h-2M7 3v2m5-2v2"/></symbol></svg>
+
+  <div class="page-shell"><header class="site-header"><a href="./" class="site-brand"><span class="seal">念</span><div>一念木魚<small>把努力，敲成心安。</small></div></a><span class="site-note">一方靜處，一點累積。</span><span class="edition">木魚・上班鼓勵器</span></header><div class="workspace">
+    
+    <aside class="app-card" aria-label="收入面板">
+      <header class="app-header">
+        <a class="brand" href="./" aria-label="上班鼓勵器首頁"><h1>今日的努力<span>每一秒，都有回報。</span></h1></a>
+        <button class="settings-button" id="open-settings"><svg class="icon"><use href="#i-settings"/></svg>設定</button>
+      </header>
+
+      <div class="date-row"><span id="today-date">載入日期中</span><span id="today-weekday"></span><time id="clock">08:00:00</time><span class="live-indicator" title="即時更新"></span></div>
+
+      <section class="status-section" aria-labelledby="work-status">
+        <div class="status-heading"><h2 id="work-status">上班中<span class="status-dot"></span></h2><span id="schedule-summary">每日 8 小時・午休 1 小時</span></div>
+        <p id="countdown" class="countdown">每一秒的努力，都在累積。</p>
+      </section>
+
+      <section class="earnings-section" aria-label="今日收入">
+        <div class="section-eyebrow"><span>今日已賺</span><span class="small-tag" id="earnings-tag">慢慢累積，也很了不起</span></div>
+        <div class="money-display" aria-label="今日已賺新臺幣"><span class="currency">NT$</span><span id="today-money" class="money-value">0<span class="money-decimal">.0000</span></span></div>
+        <div class="earning-rate"><span class="rate-spark">✦</span>目前賺錢速度 <strong id="per-second">NT$0.0000／秒</strong><button id="toggle-pause" class="pause-button" aria-pressed="false" title="暫停數字動畫，不影響收入計算">暫停 <span aria-hidden="true">Ⅱ</span></button></div>
+      </section>
+
+      <section class="progress-section" aria-label="今日工作進度">
+        <div class="progress-labels"><span>今日工作進度 <strong id="progress-percent">0.0%</strong></span><span id="worked-hours">已工作 0.00／8.00 小時</span></div>
+        <div class="progress-track" id="work-progress" role="progressbar" aria-label="今日工作進度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div id="progress-fill" class="progress-fill"></div></div>
+        <div class="schedule-labels"><span id="start-label">08:00 上班</span><span id="end-label">17:00 下班</span></div>
+      </section>
+
+      <section class="stats-section" aria-label="薪資摘要">
+        <div class="daily-stats"><div><p>每小時的努力</p><strong id="hourly-pay">NT$0.00</strong><span>時薪</span></div><div><p>今日滿勤可得</p><strong id="daily-pay">NT$0.00</strong><span id="daily-hours">認真生活的 8 小時</span></div></div>
+        <div class="month-stats"><div><p>本月累計</p><span>已過工作日按滿勤計算</span></div><strong id="month-pay">NT$0.00</strong></div>
+        <div class="month-footnote"><span id="month-days">本月共 0 個工作日</span><span id="monthly-salary">月薪 NT$35,000</span></div>
+      </section>
+
+      <div class="equivalent" id="equivalent"><svg class="icon"><use href="#i-coffee"/></svg><p>努力慢慢累積，小確幸正在路上。</p></div>
+
+      <section class="encouragement" aria-label="今日鼓勵"><div class="sun-doodle"><svg class="icon"><use href="#i-sun"/></svg></div><div><p id="quote">慢慢來，每一秒的努力都算數。</p><span>下班後，把時間留給喜歡的自己。</span></div><button id="next-quote" class="icon-button" aria-label="換一句鼓勵" title="換一句鼓勵"><svg class="icon"><use href="#i-refresh"/></svg></button></section>
+      <footer class="card-footer"><span><span class="saved-dot"></span><span id="save-status">設定儲存在此瀏覽器</span></span><button id="fullscreen" class="text-button"><svg class="icon"><use href="#i-expand"/></svg><span>專注模式</span></button></footer>
+    </aside>
+<main class="zen-room" aria-label="木魚靜心空間">
+  <div class="room-top"><span class="room-label"><i></i>留一點安靜給自己</span><span class="room-number">一念・一敲</span></div>
+  <div class="room-heading"><p>無須匆忙，慢慢就好。</p><h2>把雜念放下，<br>讓努力慢慢回響。</h2></div>
+  <span class="zen-glyph" aria-hidden="true">靜</span>
+  <div class="wood-stage" id="wood-stage"><div class="halo"></div><div class="ripple" aria-hidden="true"></div><span id="merit-pop" aria-hidden="true">功德+1</span>
+    <button class="wood-button" id="strike-wood" aria-label="敲一下木魚"><img src="./muyu.png" alt="胡桃木雕刻木魚，安放於圓形布墊上" draggable="false"></button>
+    <svg class="mallet" viewBox="0 0 300 140" aria-hidden="true"><defs><linearGradient id="wood-grad" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#b38751"/><stop offset=".28" stop-color="#e2b77d"/><stop offset=".55" stop-color="#b17a42"/><stop offset="1" stop-color="#54341e"/></linearGradient></defs><rect x="62" y="56" width="220" height="14" rx="7" fill="url(#wood-grad)"/><ellipse cx="65" cy="63" rx="39" ry="33" fill="url(#wood-grad)"/><ellipse cx="58" cy="54" rx="24" ry="17" fill="#edcfa1" opacity=".12"/></svg>
+    <div class="stage-caption">輕敲木魚，讓心回到此刻<span>點一下，或按空白鍵敲擊</span></div>
+  </div>
+  <div class="room-bottom"><div class="session-count"><span>今日靜心敲擊</span><strong id="strike-count">0</strong><small>次</small></div><div class="session-intent"><span>每秒一敲，不急不徐。</span><small>敲擊次數獨立於薪資計算</small></div></div>
+  <div class="zen-controls"><button id="auto-strike" aria-pressed="true"><span class="control-dot"></span><span id="auto-label">自動敲擊中</span><small>每秒一次</small></button><div class="audio-control"><button id="sound-toggle" aria-pressed="false"><span id="sound-icon">♪</span><span id="sound-label">開啟音效</span></button><input id="volume" type="range" min="0" max="100" value="40" aria-label="木魚音量"></div></div>
+</main></div>
+    <footer class="page-footer"><span>一敲一念，願今天的你，心有所安。</span><span>臺灣時間・收入依工時估算</span></footer>
+  </div>
+
+  <dialog id="settings-dialog" aria-labelledby="settings-title">
+    <form id="settings-form">
+      <div class="dialog-header"><div><span class="dialog-eyebrow">讓每一份努力都有回報</span><h2 id="settings-title">我的上班設定</h2></div><button type="button" id="close-settings" class="icon-button" aria-label="關閉設定"><svg class="icon"><use href="#i-close"/></svg></button></div>
+      <div class="dialog-body">
+        <label class="field-label" for="salary">每月薪資</label><div class="input-with-unit"><span>NT$</span><input id="salary" name="salary" type="number" min="1" max="999999999" step="1" required inputmode="numeric"><span>元／月</span></div>
+        <p class="field-help">依當月設定的工作日數，平均計算每日收入。</p>
+        <div class="field-row"><div><label class="field-label" for="start">上班時間</label><input id="start" name="start" type="time" required lang="zh-TW"></div><div><label class="field-label" for="end">下班時間</label><input id="end" name="end" type="time" required lang="zh-TW"></div></div>
+        <div class="switch-row"><label for="lunch-enabled">扣除午休時間<span>午休期間收入暫停累積</span></label><input type="checkbox" role="switch" id="lunch-enabled" name="lunchEnabled"></div>
+        <div class="field-row" id="lunch-fields"><div><label class="field-label" for="lunch-start">午休開始</label><input id="lunch-start" name="lunchStart" type="time" lang="zh-TW"></div><div><label class="field-label" for="lunch-end">午休結束</label><input id="lunch-end" name="lunchEnd" type="time" lang="zh-TW"></div></div>
+        <fieldset class="workdays-field"><legend class="field-label">每週工作日</legend><div class="weekday-picker"><label><input type="checkbox" name="workdays" value="1"><span>一</span></label><label><input type="checkbox" name="workdays" value="2"><span>二</span></label><label><input type="checkbox" name="workdays" value="3"><span>三</span></label><label><input type="checkbox" name="workdays" value="4"><span>四</span></label><label><input type="checkbox" name="workdays" value="5"><span>五</span></label><label><input type="checkbox" name="workdays" value="6"><span>六</span></label><label><input type="checkbox" name="workdays" value="0"><span>日</span></label></div><p class="field-help">依星期計算，未自動扣除國定假日與請假。</p></fieldset>
+        <fieldset class="theme-field"><legend class="field-label">選一個喜歡的配色</legend><div class="theme-picker"><label><input type="radio" name="theme" value="cream"><span><i class="swatch cream"></i>暖暖米白</span></label><label><input type="radio" name="theme" value="forest"><span><i class="swatch forest"></i>森系綠意</span></label><label><input type="radio" name="theme" value="lavender"><span><i class="swatch lavender"></i>溫柔紫調</span></label></div></fieldset>
+        <p id="form-error" class="form-error" role="alert" hidden></p>
+      </div>
+      <div class="dialog-footer"><button type="button" id="reset-settings" class="text-button">恢復預設</button><button type="submit" class="primary-button">儲存設定<svg class="icon"><use href="#i-arrow"/></svg></button></div>
+    </form>
+  </dialog>
+  <div class="toast" id="toast" role="status"></div>
+</body>
+</html>
